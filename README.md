@@ -37,3 +37,11 @@ PROD
 docker compose -f docker/compose.prod.yml up --build
 ```
 - Website: http://localhost:8080
+
+Restart
+```
+docker compose -f docker/compose.dev.yml down
+```
+```
+docker compose -f docker/compose.dev.yml up
+```
