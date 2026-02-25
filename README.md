@@ -20,3 +20,20 @@ Spotifider helps everyone find better Spotify recommendations than Spotify itsel
  - Figma(maybe)
  -  ERD diagram
  -  
+
+## How to start the project using Docker
+
+From the repo root:
+
+DEV
+```
+docker compose -f docker/compose.dev.yml up --build
+```
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8000
+  
+PROD
+```
+docker compose -f docker/compose.prod.yml up --build
+```
+- Website: http://localhost:8080
