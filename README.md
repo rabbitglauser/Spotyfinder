@@ -19,7 +19,7 @@ Spotifinder helps everyone find better Spotify recommendations than Spotify itse
  - chatGPT context(https://chatgpt.com/share/699ec2be-a860-8012-ab46-2b494bf7e957)
  - Figma(maybe)
  - ERD diagram
- -  
+ - Notion https://www.notion.so/Project-31119db87e2b80e19b4afe2d9371ae73
 
 ## How to start the project using Docker
 
