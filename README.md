@@ -4,21 +4,21 @@
 </h1>
 
 
-Spotifider helps everyone find better Spotify recommendations than Spotify itself by using an algorithm and machine learning.
+Spotifinder helps everyone find better Spotify recommendations than Spotify itself by using an algorithm and machine learning.
 
 ---
 
 ## technologies
 - database: MySQL Lite 
 - backend: python
-- frontend: React TypeScript, tailwind and next js
+- frontend: React, TypeScript, tailwind and next js
 
  ---
 
  ## Links!
  - chatGPT context(https://chatgpt.com/share/699ec2be-a860-8012-ab46-2b494bf7e957)
  - Figma(maybe)
- -  ERD diagram
+ - ERD diagram
  -  
 
 ## How to start the project using Docker
@@ -38,10 +38,18 @@ docker compose -f docker/compose.prod.yml up --build
 ```
 - Website: http://localhost:8080
 
-Restart
+start container
+```
+docker compose -f docker/compose.dev.yml up
+```
+
+stop container
 ```
 docker compose -f docker/compose.dev.yml down
 ```
-```
-docker compose -f docker/compose.dev.yml up
+
+
+If Port 3000 is already used, use following command in POWERSHELL to find the process using port 3000 and KILL IT:
+```Powershell
+Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000 -State Listen).OwningProcess -Force
 ```
