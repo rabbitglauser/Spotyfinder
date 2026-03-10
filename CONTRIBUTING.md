@@ -1,14 +1,12 @@
 # Contributing to Spotyfinder
 
-Thank you for your interest in contributing to Spotyfinder! This document outlines the guidelines and workflow for contributing to the project.
+Thank you for your interest in contributing to Spotyfinder! This document explains how to set up a development environment and contribute code. For a general project overview and Docker usage, see the [README](README.md).
 
 ---
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Development Setup](#development-setup)
 - [Branching Strategy](#branching-strategy)
 - [Making Changes](#making-changes)
 - [Pull Request Process](#pull-request-process)
@@ -25,64 +23,11 @@ Thank you for your interest in contributing to Spotyfinder! This document outlin
    git clone https://github.com/<your-username>/Spotyfinder.git
    cd Spotyfinder
    ```
-3. Set the upstream remote:
+3. Set the upstream remote so you can pull in future updates:
    ```bash
    git remote add upstream https://github.com/rabbitglauser/Spotyfinder.git
    ```
-
----
-
-## Project Structure
-
-```
-Spotyfinder/
-├── backend/        # Python / FastAPI backend
-├── frontend/       # Next.js / React / TypeScript frontend
-├── docker/         # Docker Compose configurations (dev & prod)
-├── docs/           # Documentation and mockups
-├── CONCEPT.md      # Project concept and MVP description
-├── README.md       # Project overview and quick start
-└── CONTRIBUTING.md # This file
-```
-
----
-
-## Development Setup
-
-### Using Docker (recommended)
-
-From the repository root, start the development environment:
-
-```bash
-docker compose -f docker/compose.dev.yml up --build
-```
-
-- **Frontend:** http://localhost:3000
-- **Backend:** http://localhost:8000
-
-Stop the containers:
-
-```bash
-docker compose -f docker/compose.dev.yml down
-```
-
-### Manual Setup
-
-**Backend (Python / FastAPI)**
-
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-**Frontend (Next.js)**
-
-```bash
-cd frontend
-pnpm install
-pnpm dev
-```
+4. Start the dev environment as described in the [README](README.md) and confirm the app runs before making any changes.
 
 ---
 
