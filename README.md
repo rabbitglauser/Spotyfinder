@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://github.com/user-attachments/assets/b463580a-e199-4e4d-8fb1-075991fa46e0" width="200px" alt="logo">
+  <img src="https://github.com/user-attachments/assets/b3ec80d2-1758-48ee-aa55-fa262de131ec" width="200px" alt="logo">
   <p>Spotyfinder</p>
 </h1>
 
@@ -8,21 +8,22 @@ Spotifinder helps everyone find better Spotify recommendations than Spotify itse
 
 ---
 
-## technologies
-- database: MySQL Lite 
-- backend: python
-- frontend: React, TypeScript, tailwind and next js
+## Technologies
+
+- <img src="https://skillicons.dev/icons?i=sqlite" alt="SQLite" height="40" /> **Database:** SQLite
+- <img src="https://skillicons.dev/icons?i=py" alt="Python" height="40" /> **Backend:** Python
+- <img src="https://skillicons.dev/icons?i=react" alt="React" height="40" /> **Frontend:** React, TypeScript, Tailwind CSS, Next.js
 
  ---
 
- ## Links!
- - chatGPT context(https://chatgpt.com/share/699ec2be-a860-8012-ab46-2b494bf7e957)
- - Figma docs/frontend_mockup
- - ERD diagram https://dbdiagram.io/home
- - Notion https://www.notion.so/Project-31119db87e2b80e19b4afe2d9371ae73
- - Exportify https://exportify.net/
+## Project Links
 
-## How to start the project using Docker
+[![ChatGPT Context](https://img.shields.io/badge/ChatGPT-Context-74aa9c?style=for-the-badge&logo=openai&logoColor=white)](https://chatgpt.com/share/699ec2be-a860-8012-ab46-2b494bf7e957)
+[![Figma Mockup](https://img.shields.io/badge/Figma-Mockup-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](docs/frontend_mockup)
+[![ERD Diagram](https://img.shields.io/badge/ERD-Database_Diagram-0ea5e9?style=for-the-badge&logo=databricks&logoColor=white)](https://dbdiagram.io/home)
+[![Notion](https://img.shields.io/badge/Notion-Project_Page-000000?style=for-the-badge&logo=notion&logoColor=white)](https://www.notion.so/Project-31119db87e2b80e19b4afe2d9371ae73)
+[![Exportify](https://img.shields.io/badge/Exportify-Open-1DB954?style=for-the-badge&logo=spotify&logoColor=white)](https://exportify.net/)
+## How to get started using Docker :)
 
 From the repo root:
 
