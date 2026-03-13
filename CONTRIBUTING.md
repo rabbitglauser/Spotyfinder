@@ -34,10 +34,7 @@ Thank you for your interest in contributing to Spotyfinder! This document explai
 
 ## Find-tasks
 
-When wanting to find tasks to do go to the issues tab or the project -> spotyfinder and pick a potential task you want to do, and add a timeline and an ergency rating 
-
-ex  
-
+When wanting to find tasks to do, go to the issues tab or the project -> spotyfinder and pick a potential task you want to do, and add a timeline and an ergency rating 
 
 ---
 
