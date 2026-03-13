@@ -4,7 +4,7 @@
 </h1>
 
 
-Spotifinder helps everyone find better Spotify recommendations than Spotify itself by using an algorithm and machine learning.
+Spotifinder helps users discover better Spotify recommendations through a custom algorithm and machine learning.
 
 ---
 
