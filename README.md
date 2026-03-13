@@ -8,6 +8,10 @@ Spotifinder helps everyone find better Spotify recommendations than Spotify itse
 
 ---
 
+## Website
+
+live website -> https://spotyfinder.netlify.app/
+
 ## Technologies
 
 - <img src="https://skillicons.dev/icons?i=sqlite" alt="SQLite" height="40" /> **Database:** SQLite
