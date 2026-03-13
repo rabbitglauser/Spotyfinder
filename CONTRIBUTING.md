@@ -7,6 +7,7 @@ Thank you for your interest in contributing to Spotyfinder! This document explai
 ## Table of Contents
 
 - [Getting Started](#getting-started)
+- [find tasks](#Find-tasks)
 - [Branching Strategy](#branching-strategy)
 - [Making Changes](#making-changes)
 - [Pull Request Process](#pull-request-process)
@@ -28,6 +29,15 @@ Thank you for your interest in contributing to Spotyfinder! This document explai
    git remote add upstream https://github.com/rabbitglauser/Spotyfinder.git
    ```
 4. Start the dev environment as described in the [README](README.md) and confirm the app runs before making any changes.
+
+---
+
+## Find-tasks
+
+When wanting to find tasks to do go to the issues tab or the project -> spotyfinder and pick a potential task you want to do, and add a timeline and an ergency rating 
+
+ex  
+
 
 ---
 
