@@ -41,7 +41,7 @@ Thank you for your interest in contributing to Spotyfinder! This document explai
   ```
 - Use descriptive branch names that reflect the work being done:
   - `feature/add-recommendation-engine`
-  - `fix/login-redirect-bug`
+  - `bugfix/login-redirect-bug`
   - `docs/update-readme`
 - **Never** commit directly to `main`.
 
@@ -112,5 +112,3 @@ Thank you for your interest in contributing to Spotyfinder! This document explai
 - Include steps to reproduce, expected behavior, and actual behavior when reporting a bug.
 
 ---
-
-We appreciate every contribution, big or small. Happy coding! 🎵
