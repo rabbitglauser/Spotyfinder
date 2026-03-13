@@ -1,2 +1,2 @@
-### add all the important doc files here
-    this file is if any clarifications are needed
+### Add all the important doc files here
+    This file is for any clarifications that are needed
