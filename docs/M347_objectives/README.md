@@ -6,10 +6,10 @@
 
 ## Abgabeformat
 
-- **Format:** Markdown
-- **Umfang:** maximal **1 A4-Seite**
-- **Dateiname:** `CONCEPT.md`
-- **Abgabe:** im **Git-Repository** (siehe nächste Aufgabe)
+- [x] **Format:** Markdown
+- [x] **Umfang:** maximal **1 A4-Seite**
+- [x] **Dateiname:** `CONCEPT.md`
+- [x] **Abgabe:** im **Git-Repository** (siehe nächste Aufgabe)
 
 ---
 
@@ -18,24 +18,24 @@
 Ihr erstellt ein kurzes, verständliches Konzept für eure Web-App.  
 Das Konzept soll zeigen:
 
-- **Was** eure App macht
-- **Welche Technologien** ihr einsetzen wollt
-- **Was** eure erste funktionsfähige Version kann (**MVP**)
-- **Wie** ihr das Projekt später erweitern würdet
-- **Welchen externen Service** ihr einbinden wollt
+- [x] **Was** eure App macht
+-  **Welche Technologien** ihr einsetzen wollt
+-  **Was** eure erste funktionsfähige Version kann (**MVP**)
+-  **Wie** ihr das Projekt später erweitern würdet
+-  **Welchen externen Service** ihr einbinden wollt
 
 ---
 
 ## Inhalt von `CONCEPT.md`
 
 ### 1) Thema und Idee
-Beschreibt die Grundidee eurer Web-App.
+- [x] Beschreibt die Grundidee eurer Web-App.
 
 **Muss enthalten:**
-- Was ist eure App?
-- Welches Problem löst sie?
-- Für wen ist sie gedacht?
-- Persönlicher Bezug: Warum interessiert euch diese Idee persönlich?
+- [x] Was ist eure App?
+- [x] Welches Problem löst sie?
+- [x] Für wen ist sie gedacht?
+- [x] Persönlicher Bezug: Warum interessiert euch diese Idee persönlich?
 
 **Umfang:** 3–4 vollständige Sätze
 
@@ -96,10 +96,10 @@ Wählt mindestens **einen** Service aus und beschreibt:
 
 ## Bewertungskriterien
 
-- verständliche Beschreibung
-- realistische Planung
-- sinnvolle Technologieauswahl
+- [x] verständliche Beschreibung
+- [x] realistische Planung
+- [x] sinnvolle Technologieauswahl
 - technisch umsetzbarer MVP
-- saubere Markdown-Struktur
+- [x] saubere Markdown-Struktur
 
 ---
