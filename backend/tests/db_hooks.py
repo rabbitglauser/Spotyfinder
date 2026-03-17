@@ -30,4 +30,3 @@ def cleanup_database(db_handle: Any) -> None:
     Replace this with cleanup logic (drop schema, close engine, rollback, etc.).
     """
     _ = db_handle
-
