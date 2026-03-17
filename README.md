@@ -14,9 +14,9 @@ Spotyfinder helps users discover better Spotify recommendations through a custom
 
 ## Technologies
 
-- <img src="https://skillicons.dev/icons?i=sqlite" alt="SQLite" height="40" /> **Database:** SQLite
-- <img src="https://skillicons.dev/icons?i=py" alt="Python" height="40" /> **Backend:** Python
 - <img src="https://skillicons.dev/icons?i=react" alt="React" height="40" /> **Frontend:** React, TypeScript, Tailwind CSS, Next.js
+- <img src="https://skillicons.dev/icons?i=py" alt="Python" height="40" /> **Backend:** Python
+- <img src="https://skillicons.dev/icons?i=sqlite" alt="SQLite" height="40" /> **Database:** SQLite
 
  ---
 

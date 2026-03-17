@@ -19,7 +19,7 @@ Ihr erstellt ein kurzes, verständliches Konzept für eure Web-App.
 Das Konzept soll zeigen:
 
 - [x] **Was** eure App macht
-- [x] **Welche Technologien** ihr einsetzen wollt
+-  **Welche Technologien** ihr einsetzen wollt
 -  **Was** eure erste funktionsfähige Version kann (**MVP**)
 -  **Wie** ihr das Projekt später erweitern würdet
 -  **Welchen externen Service** ihr einbinden wollt
