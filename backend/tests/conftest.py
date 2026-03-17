@@ -78,4 +78,3 @@ def db_session(db_handle: Any) -> Generator[Any, None, None]:
         close = getattr(session, "close", None)
         if callable(close):
             close()
-

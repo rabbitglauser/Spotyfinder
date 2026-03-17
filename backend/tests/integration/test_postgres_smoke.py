@@ -19,4 +19,3 @@ def test_can_connect_to_postgres(test_database_url: str) -> None:
         with connection.cursor() as cursor:
             cursor.execute("SELECT 1;")
             assert cursor.fetchone() == (1,)
-
