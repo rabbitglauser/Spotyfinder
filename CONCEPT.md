@@ -17,3 +17,13 @@ Heute gibt es z. B. Spotify, das Musik-Empfehlungen anbietet, aber diese passen 
 
 - **Persönlicher Bezug: Warum interessiert euch diese Idee persönlich?**  
   Uns interessiert die Idee, weil wir selbst erlebt haben, dass Spotify (auch mit Premium) oft Songs empfiehlt, die einen völlig anderen Stil haben und für uns „komisch“ bzw. unpassend sind.
+
+### 2. Eingesetzte Technologien
+
+**Frontend:**
+  Wir haben uns hier für React mit Typescript als technische Lösung für unser Projekt entschieden, da uns diese Library schon bekannt ist, und die Funktionalität mit Single-Page-Applications für unsere Website passend ist.
+
+  Für das Styling benutzen wir Tailwind, um die Struktur unserer Website effizienter zu gestalten.
+
+**Backend:**
+  Für das Backend benutzen wir Python, da es eine einfache Programmiersprache ist, und da es gut mit Datenverwaltung und Datenbanken funktioniert. Zusätzlich ist Python sehr kompatibel mit AI Libraries - und da wir einen eigenen Algorithmus entwickeln wollen, wird uns Python dabei unterstützen.
