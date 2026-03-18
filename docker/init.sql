@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS incoming_tracks (
     id BIGSERIAL PRIMARY KEY,
     track_uri VARCHAR(255) NOT NULL UNIQUE,
@@ -130,3 +131,7 @@ INSERT INTO incoming_tracks (
         97.989,
         4
     );
+=======
+SOURCE /docker-entrypoint-initdb.d/includes/ddl.inc;
+SOURCE /docker-entrypoint-initdb.d/includes/seed.inc;
+>>>>>>> bdbb1769 (oddycommit)
