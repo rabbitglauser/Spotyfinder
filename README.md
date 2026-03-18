@@ -61,3 +61,29 @@ If Port 3000 is already used, use following command in POWERSHELL to find the pr
 ```Powershell
 Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000 -State Listen).OwningProcess -Force
 ```
+
+# Deployment
+
+## Build and publish images
+
+DockerHub images:
+- Backend: https://hub.docker.com/r/rabbitglauser/docker-backend
+- Frontend: https://hub.docker.com/r/rabbitglauser/docker-frontend
+
+Build and push both images from the project root:
+```sh
+docker login -u rabbitglauser
+sh build-and-push.sh
+```
+
+Optional custom tag:
+```sh
+IMAGE_TAG=v1.0.0 PUSH_LATEST=true sh build-and-push.sh
+```
+
+Automatic update with GitLab:
+- The pipeline in `.gitlab-ci.yml` runs on every push to `main`.
+- It calls `build-and-push.sh` with `IMAGE_TAG=$CI_COMMIT_SHORT_SHA` and also updates `latest`.
+- Configure GitLab CI/CD variables:
+  - `DOCKERHUB_USERNAME` (default is `rabbitglauser`)
+  - `DOCKERHUB_TOKEN` (DockerHub Access Token)
