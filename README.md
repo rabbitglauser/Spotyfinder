@@ -37,7 +37,9 @@ docker compose -f docker/compose.dev.yml up --build
 ```
 - Frontend: http://localhost:3000
 - Backend: http://localhost:8000
-  
+- Database http://localhost:5432
+
+
 PROD
 ```
 docker compose -f docker/compose.prod.yml up --build
