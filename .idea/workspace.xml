@@ -4,25 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36697080-c530-476f-9079-11953a325ef7" name="Changes" comment="Task 3: Migrated database from PostgreSQL to MySQL in Docker Compose configuration">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/find-your-uniqueness/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/find-your-uniqueness/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/getting_started.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/getting_started_layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/recommendation.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/recommendation_layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/refine-search/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/refine-search/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/refine_search.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/refine_search_layout.tsx" beforeDir="false" />
-    </list>
+    <list default="true" id="36697080-c530-476f-9079-11953a325ef7" name="Changes" comment="Task 4: Refactored import paths and component structure for frontend consistency" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="97" />
+    <option name="cachedIndexableFilesCount" value="156" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -77,7 +66,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "bugfix/frontend",
+    "git-widget-placeholder": "feature/docker-volue",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
@@ -174,7 +163,7 @@
       <workItem from="1772640017152" duration="1611000" />
       <workItem from="1773867667673" duration="69000" />
       <workItem from="1773867801496" duration="14000" />
-      <workItem from="1773868378458" duration="2027000" />
+      <workItem from="1773868378458" duration="2498000" />
     </task>
     <task id="LOCAL-00001" summary="**Initialize project structure with IntelliJ IDEA settings and project concept documentation.**">
       <option name="closed" value="true" />
@@ -296,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773869624900</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Task 4: Refactored import paths and component structure for frontend consistency">
+      <option name="closed" value="true" />
+      <created>1773870812295</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1773870812295</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,7 +313,9 @@
     <MESSAGE value="adding CRUD operation" />
     <MESSAGE value="Add example CSV diagram to documentation" />
     <MESSAGE value="Task 3: Migrated database from PostgreSQL to MySQL in Docker Compose configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 3: Migrated database from PostgreSQL to MySQL in Docker Compose configuration" />
+    <MESSAGE value="Task 4: Refactored file structure and updated imports" />
+    <MESSAGE value="Task 4: Refactored import paths and component structure for frontend consistency" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 4: Refactored import paths and component structure for frontend consistency" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
