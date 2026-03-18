@@ -1,6 +1,4 @@
 services:
-<<<<<<< HEAD
-=======
   database:
     image: mysql:8.4
     environment:
@@ -14,7 +12,6 @@ services:
       - ../database/script/ddl.sql:/docker-entrypoint-initdb.d/includes/ddl.inc:ro
       - ../database/script/seed.sql:/docker-entrypoint-initdb.d/includes/seed.inc:ro
 
->>>>>>> bdbb1769 (oddycommit)
   backend:
     build:
       context: ..
@@ -24,9 +21,6 @@ services:
     volumes:
       - ../backend:/app
     environment:
-<<<<<<< HEAD
-      - PYTHONUNBUFFERED=1
-=======
       PYTHONUNBUFFERED: "1"
       DB_HOST: database
       DB_PORT: "3306"
@@ -35,7 +29,6 @@ services:
       DB_PASSWORD: root
     depends_on:
       - database
->>>>>>> bdbb1769 (oddycommit)
 
   frontend:
     build:
@@ -48,15 +41,9 @@ services:
       - frontend_node_modules:/app/node_modules
       - pnpm_store:/pnpm/store
     environment:
-<<<<<<< HEAD
-      - NEXT_TELEMETRY_DISABLED=1
-      - CHOKIDAR_USEPOLLING=true
-      - CI=true
-=======
       NEXT_TELEMETRY_DISABLED: "1"
       CHOKIDAR_USEPOLLING: "true"
       CI: "true"
->>>>>>> bdbb1769 (oddycommit)
     depends_on:
       - backend
     command: >
@@ -65,9 +52,6 @@ services:
               [ -f node_modules/next/dist/bin/next ] || pnpm install --frozen-lockfile --prefer-offline --reporter=append-only;
               pnpm exec next dev --webpack --hostname 0.0.0.0 --port 3000'
 volumes:
-<<<<<<< HEAD
-=======
   mysql_data:
->>>>>>> bdbb1769 (oddycommit)
   frontend_node_modules:
   pnpm_store:
