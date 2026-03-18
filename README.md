@@ -81,9 +81,9 @@ Optional custom tag:
 IMAGE_TAG=v1.0.0 PUSH_LATEST=true sh build-and-push.sh
 ```
 
-Automatic update with GitLab:
-- The pipeline in `.gitlab-ci.yml` runs on every push to `main`.
-- It calls `build-and-push.sh` with `IMAGE_TAG=$CI_COMMIT_SHORT_SHA` and also updates `latest`.
-- Configure GitLab CI/CD variables:
+Automatic update with GitHub Actions:
+- The workflow in `.github/workflows/publish-images.yml` runs on every push to `main`.
+- It calls `build-and-push.sh` with `IMAGE_TAG=<short commit SHA>` and also updates `latest`.
+- Configure GitHub repository secrets:
   - `DOCKERHUB_USERNAME` (default is `rabbitglauser`)
   - `DOCKERHUB_TOKEN` (DockerHub Access Token)
