@@ -59,3 +59,33 @@ If Port 3000 is already used, use following command in POWERSHELL to find the pr
 ```Powershell
 Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000 -State Listen).OwningProcess -Force
 ```
+
+# Local Development with Compose
+
+This Compose setup starts frontend, backend, and a PostgreSQL database with seeded test data.
+
+From the repo root:
+
+```bash
+docker compose -f docker/docker-compose.yml up --build
+```
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8000
+- Database: localhost:5432 (`spotyfinder` / `spotyfinder` / `spotyfinder`)
+
+Check seeded data:
+
+```bash
+echo SELECT COUNT(*) AS seeded_rows FROM incoming_tracks; | docker compose -f docker/docker-compose.yml exec -T database psql -U spotyfinder -d spotyfinder
+```
+
+Incoming data example:
+
+![Incoming CSV example](docs/db/erd/DB_CSV_exmaple.png)
+
+Stop containers:
+
+```bash
+docker compose -f docker/docker-compose.yml down
+```
