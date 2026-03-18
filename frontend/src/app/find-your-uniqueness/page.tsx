@@ -1,5 +1,5 @@
 "use client";
-import Recommendation from "../recommendation";
+import Recommendation from "@/components/recommendation/Recommendation";
 
 export default function Page() {
   return <Recommendation />;
