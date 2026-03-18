@@ -1,0 +1,14 @@
+FROM node:20-alpine
+
+WORKDIR /app
+RUN corepack enable
+
+COPY frontend/package.json frontend/pnpm-lock.yaml ./
+RUN pnpm install
+
+COPY frontend/ ./
+
+EXPOSE 3000
+ENV NEXT_TELEMETRY_DISABLED=1
+
+CMD ["pnpm", "dev", "--", "-H", "0.0.0.0", "-p", "3000"]

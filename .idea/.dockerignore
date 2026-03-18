@@ -1,0 +1,10 @@
+.git
+.idea
+**/node_modules
+**/.next
+**/out
+**/dist
+**/build
+**/__pycache__
+**/*.pyc
+.env

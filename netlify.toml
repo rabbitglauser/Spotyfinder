@@ -1,0 +1,4 @@
+[build]
+base = "frontend"
+command = "pnpm build"
+publish = ".next"
