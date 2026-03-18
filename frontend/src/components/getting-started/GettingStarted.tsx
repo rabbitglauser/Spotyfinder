@@ -4,7 +4,7 @@ import React from "react";
 import GettingStartedLayout, {
   GettingStartedInfoBlock,
   GettingStartedStepCard,
-} from "./getting_started_layout";
+} from "./GettingStartedLayout";
 
 const stepCards: GettingStartedStepCard[] = [
   {

@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
-import RefineSearchLayout, {
+
+import { useState } from "react";
+import {
   RefineSearchFilters,
   RefineSearchTrack,
-} from "./refine_search_layout";
+} from "@/components/refine-search/RefineSearchLayout";
 
 const initialFilters: RefineSearchFilters = {
   includeGenres: ["Rap", "Drill", "Chill"],
@@ -11,7 +12,7 @@ const initialFilters: RefineSearchFilters = {
   popularity: 72,
 };
 
-const dummyTracks: RefineSearchTrack[] = [
+const tracks: RefineSearchTrack[] = [
   {
     id: 1,
     title: "Fever",
@@ -74,17 +75,9 @@ const dummyTracks: RefineSearchTrack[] = [
   },
 ];
 
-export default function RefineSearch() {
+export default function useRefineSearchState() {
   const [filters, setFilters] = useState<RefineSearchFilters>(initialFilters);
-  const [activeTrack, setActiveTrack] = useState<RefineSearchTrack>(dummyTracks[0]);
+  const [activeTrack, setActiveTrack] = useState<RefineSearchTrack>(tracks[0]);
 
-  return (
-    <RefineSearchLayout
-      filters={filters}
-      setFilters={setFilters}
-      tracks={dummyTracks}
-      activeTrack={activeTrack}
-      setActiveTrack={setActiveTrack}
-    />
-  );
+  return { filters, setFilters, tracks, activeTrack, setActiveTrack };
 }
