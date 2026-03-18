@@ -1,21 +1,29 @@
 services:
   database:
     image: mysql:8.4
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: spotyfinderdb
     ports:
-      - "3306:3306"
+      - "5432:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - ../database/script/ddl.sql:/docker-entrypoint-initdb.d/includes/ddl.inc:ro
       - ../database/script/seed.sql:/docker-entrypoint-initdb.d/includes/seed.inc:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
 
   backend:
     build:
       context: ..
       dockerfile: backend/Dockerfile.dev
+    restart: unless-stopped
     ports:
       - "8000:8000"
     volumes:
@@ -28,12 +36,26 @@ services:
       DB_USER: root
       DB_PASSWORD: root
     depends_on:
-      - database
+      database:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   frontend:
     build:
       context: ..
       dockerfile: frontend/Dockerfile.dev
+    restart: unless-stopped
     ports:
       - "3000:3000"
     volumes:
@@ -45,7 +67,8 @@ services:
       CHOKIDAR_USEPOLLING: "true"
       CI: "true"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     command: >
       sh -lc 'pnpm config set store-dir /pnpm/store;
               pnpm config set network-timeout 600000;

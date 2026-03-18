@@ -1,22 +1,23 @@
 services:
   database:
-    image: postgres:16-alpine
+    image: mysql:8.4
     restart: unless-stopped
     environment:
-      POSTGRES_DB: spotyfinder
-      POSTGRES_USER: spotyfinder
-      POSTGRES_PASSWORD: spotyfinder
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: spotyfinderdb
     ports:
-      - "5432:5432"
+      - "5432:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ../database/script/ddl.sql:/docker-entrypoint-initdb.d/includes/ddl.inc:ro
+      - ../database/script/seed.sql:/docker-entrypoint-initdb.d/includes/seed.inc:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"]
       interval: 5s
       timeout: 5s
-      retries: 15
-      start_period: 5s
+      retries: 20
+      start_period: 20s
 
   backend:
     build:
@@ -29,7 +30,11 @@ services:
       - ../backend:/app
     environment:
       PYTHONUNBUFFERED: "1"
-      DATABASE_URL: postgresql://spotyfinder:spotyfinder@database:5432/spotyfinder
+      DB_HOST: database
+      DB_PORT: "3306"
+      DB_NAME: spotyfinderdb
+      DB_USER: root
+      DB_PASSWORD: root
     depends_on:
       database:
         condition: service_healthy
@@ -71,6 +76,6 @@ services:
               pnpm exec next dev --webpack --hostname 0.0.0.0 --port 3000"
 
 volumes:
-  postgres_data:
+  mysql_data:
   frontend_node_modules:
   pnpm_store:
