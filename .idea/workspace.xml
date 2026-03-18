@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36697080-c530-476f-9079-11953a325ef7" name="Changes" comment="Task 4: Github Pipeline" />
+    <list default="true" id="36697080-c530-476f-9079-11953a325ef7" name="Changes" comment="Task 4: Github Pipeline">
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_1/Aufgabe_1.1_Konzept_schreiben .md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_1/Aufgabe_1.2_Repository_&amp;_Ordnerstruktur.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_1/Aufgabe_1.3_Frontend_anfangen.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_1/Beispiel_Konzept .md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_2/Aufgabe_2.1_Backend_als_Single_Container_App .md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_2/Aufgabe_2.2_Frontend_als_Single_Container_App.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_2/Aufgabe_2.3_Docker Image_via_Registry_verfügbar_machen.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_2/Tag_2_Single_Container_App.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_3/Aufgabe_3.1_Docker_Compose_&amp;_Datenbank.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_3/Aufgabe_3.3_Frontend_&amp;_Gruppentest.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_4/Aufgabe_4.3_Docker_Images_publishen.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/lernziele_M347/Tag_4/Tag_4_Erweiterungen_&amp;_Deployment.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/M347_objectives/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/lernziele_M347/old/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +81,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feature/lernziel-docs",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
@@ -92,6 +107,7 @@
       <recent name="C:\Users\samue\IdeaProjects\Spotyfinder\docs\diagrams\architecture\DB" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\samue\Spotyfinder\docs\lernziele_M347\old" />
       <recent name="C:\Users\samue\IdeaProjects\Spotyfinder\docs\diagrams\architecture" />
       <recent name="C:\Users\samue\IdeaProjects\Spotyfinder\docs\diagrams\erd" />
       <recent name="C:\Users\samue\IdeaProjects\Spotyfinder\backend" />
