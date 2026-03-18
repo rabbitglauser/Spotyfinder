@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_DB: spotyfinder
       POSTGRES_USER: spotyfinder
-      POSTGRES_PASSWORD: spotyfinder
+      POSTGRES_PASSWORD: ""
     ports:
       - "5432:5432"
     volumes:
@@ -29,7 +29,7 @@ services:
       - ../backend:/app
     environment:
       PYTHONUNBUFFERED: "1"
-      DATABASE_URL: postgresql://spotyfinder:spotyfinder@database:5432/spotyfinder
+      DATABASE_URL: postgresql://spotyfinder:@database:5432/spotyfinder
     depends_on:
       database:
         condition: service_healthy
