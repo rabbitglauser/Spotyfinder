@@ -39,7 +39,6 @@ docker compose -f docker/compose.dev.yml up --build
 - Backend: http://localhost:8000
 - Database http://localhost:5432
 
-
 PROD
 ```
 docker compose -f docker/compose.prod.yml up --build
@@ -54,10 +53,4 @@ docker compose -f docker/compose.dev.yml up
 stop container
 ```
 docker compose -f docker/compose.dev.yml down
-```
-
-
-If Port 3000 is already used, use following command in POWERSHELL to find the process using port 3000 and KILL IT:
-```Powershell
-Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000 -State Listen).OwningProcess -Force
 ```
