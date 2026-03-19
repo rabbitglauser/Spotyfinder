@@ -4,38 +4,45 @@ USE spotyfinderdb;
 
 CREATE TABLE playlists (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    playlist_id VARCHAR(255),
+    spotify_playlist_id VARCHAR(255) UNIQUE,
     name VARCHAR(255)
 );
 
 CREATE TABLE record_labels (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255)
+    name VARCHAR(255) UNIQUE
 );
 
 CREATE TABLE artists (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    artist_id VARCHAR(255),
+    spotify_artist_id VARCHAR(255) UNIQUE,
     name VARCHAR(255),
-    artist_name VARCHAR(255)
+    artist_name VARCHAR(255),
+    image_url VARCHAR(512) NULL
 );
 
 CREATE TABLE albums (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    album_id VARCHAR(255),
+    spotify_album_id VARCHAR(255) UNIQUE,
     name VARCHAR(255),
     release_date DATE,
     label_id INT,
+    image_url VARCHAR(512) NULL,
     FOREIGN KEY (label_id) REFERENCES record_labels(id)
 );
 
 CREATE TABLE tracks (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    spotify_track_id VARCHAR(255) UNIQUE,
     track_uri VARCHAR(255),
+    name VARCHAR(255) NULL,
     album_id INT,
     duration_ms INT,
     popularity INT,
     explicit BOOLEAN,
+    spotify_url VARCHAR(512) NULL,
+    preview_url VARCHAR(512) NULL,
+    cover_image_url VARCHAR(512) NULL,
     FOREIGN KEY (album_id) REFERENCES albums(id)
 );
 
@@ -58,7 +65,7 @@ CREATE TABLE audio_features (
 
 CREATE TABLE genres (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255)
+    name VARCHAR(255) UNIQUE
 );
 
 CREATE TABLE artist_genres (
