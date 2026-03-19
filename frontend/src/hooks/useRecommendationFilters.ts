@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import RecommendationLayout, {
-  RecommendationFilters,
-} from "./recommendation_layout";
+import { useState } from "react";
+import { RecommendationFilters } from "@/components/recommendation/RecommendationLayout";
 
 const initialFilters: RecommendationFilters = {
   includeGenres: ["Rap", "Drill", "Chill"],
@@ -30,14 +28,6 @@ const initialFilters: RecommendationFilters = {
   },
 };
 
-export default function Recommendation() {
-  const [filters, setFilters] =
-    useState<RecommendationFilters>(initialFilters);
-
-  return (
-    <RecommendationLayout
-      filters={filters}
-      setFilters={setFilters}
-    />
-  );
+export default function useRecommendationFilters() {
+  return useState<RecommendationFilters>(initialFilters);
 }
