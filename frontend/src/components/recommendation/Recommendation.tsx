@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import useRecommendationFilters from "@/hooks/useRecommendationFilters";
 import RecommendationLayout from "./RecommendationLayout";
 
@@ -50,6 +51,7 @@ function getErrorMessage(data: unknown, fallback: string): string {
 }
 
 export default function Recommendation() {
+  const router = useRouter();
   const [filters, setFilters] = useRecommendationFilters();
 
   const [playlistName, setPlaylistName] = useState("");
@@ -142,6 +144,38 @@ export default function Recommendation() {
     }
   };
 
+  const handleFind = () => {
+    const trimmedPlaylistName = playlistName.trim();
+
+    if (!trimmedPlaylistName) {
+      setUploadError("Please enter a playlist name before continuing.");
+      return;
+    }
+
+    const refineSearchPayload = {
+      playlistName: trimmedPlaylistName,
+      enrichWithSpotify,
+      filters: {
+        includeGenres: filters.includeGenres,
+        excludeGenres: filters.excludeGenres,
+        popularity: filters.popularity.enabled ? filters.popularity.value : 0,
+        danceability: filters.danceability.enabled
+          ? filters.danceability.value
+          : null,
+        energy: filters.energy.enabled ? filters.energy.value : null,
+        mood: filters.mood.enabled ? filters.mood.value : null,
+        acoustic: filters.acoustic.enabled ? filters.acoustic.value : null,
+      },
+    };
+
+    localStorage.setItem(
+      "spotyfinder-refine-search",
+      JSON.stringify(refineSearchPayload)
+    );
+
+    router.push("/refine-search");
+  };
+
   return (
     <RecommendationLayout
       filters={filters}
@@ -156,6 +190,7 @@ export default function Recommendation() {
       uploadError={uploadError}
       onFileChange={handleFileChange}
       onUpload={handleUpload}
+      onFind={handleFind}
     />
   );
 }

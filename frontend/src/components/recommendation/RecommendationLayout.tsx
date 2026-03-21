@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import Link from "next/link";
 
 export interface ToggleSliderValue {
   enabled: boolean;
@@ -36,6 +35,7 @@ interface RecommendationLayoutProps {
 
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onUpload: () => Promise<void>;
+  onFind: () => void;
 }
 
 function BackgroundBlobs() {
@@ -224,6 +224,7 @@ export default function RecommendationLayout({
   uploadError,
   onFileChange,
   onUpload,
+  onFind,
 }: RecommendationLayoutProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -521,12 +522,13 @@ export default function RecommendationLayout({
             </div>
 
             <div className="mt-auto flex justify-end pt-6">
-              <Link
-                href="/refine-search"
+              <button
+                type="button"
+                onClick={onFind}
                 className="rounded-full bg-gradient-to-r from-green-600 to-green-700 px-8 py-4 text-2xl font-black text-black shadow-lg shadow-green-700/30 transition hover:scale-[1.02]"
               >
                 Find
-              </Link>
+              </button>
             </div>
           </div>
         </div>
