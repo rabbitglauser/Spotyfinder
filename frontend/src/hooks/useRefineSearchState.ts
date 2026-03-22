@@ -35,8 +35,6 @@ const emptyTrack: RefineSearchTrack = {
   title: "No track selected",
   artist: "Spotyfinder",
   genres: [],
-  followers: 0,
-  monthlyListeners: 0,
   duration: "0:00",
   palette: {
     primary: "#1f2937",
@@ -44,6 +42,10 @@ const emptyTrack: RefineSearchTrack = {
     accent: "#19c819",
     surface: "#030303",
   },
+  previewUrl: null,
+  coverImageUrl: null,
+  popularity: 0,
+  matchReasons: ["No recommendation selected yet."],
 };
 
 export default function useRefineSearchState() {
@@ -51,7 +53,11 @@ export default function useRefineSearchState() {
   const [filters, setFilters] = useState<RefineSearchFilters>({
     includeGenres: [],
     excludeGenres: [],
-    popularity: 50,
+    popularity: 0,
+    danceability: null,
+    energy: null,
+    mood: null,
+    acoustic: null,
   });
 
   const [tracks, setTracks] = useState<RefineSearchTrack[]>([]);
@@ -71,7 +77,23 @@ export default function useRefineSearchState() {
       setFilters({
         includeGenres: parsed.filters?.includeGenres ?? [],
         excludeGenres: parsed.filters?.excludeGenres ?? [],
-        popularity: parsed.filters?.popularity ?? 50,
+        popularity: parsed.filters?.popularity ?? 0,
+        danceability:
+          typeof parsed.filters?.danceability === "number"
+            ? parsed.filters.danceability
+            : null,
+        energy:
+          typeof parsed.filters?.energy === "number"
+            ? parsed.filters.energy
+            : null,
+        mood:
+          typeof parsed.filters?.mood === "number"
+            ? parsed.filters.mood
+            : null,
+        acoustic:
+          typeof parsed.filters?.acoustic === "number"
+            ? parsed.filters.acoustic
+            : null,
       });
     } catch (loadError) {
       console.error("Failed to read refine search payload:", loadError);
@@ -84,7 +106,7 @@ export default function useRefineSearchState() {
 
     let isCancelled = false;
 
-    const loadRecommendations = async () => {
+    const timeoutId = window.setTimeout(async () => {
       try {
         setIsLoading(true);
         setError(null);
@@ -101,6 +123,10 @@ export default function useRefineSearchState() {
               includeGenres: filters.includeGenres,
               excludeGenres: filters.excludeGenres,
               popularity: filters.popularity,
+              danceability: filters.danceability,
+              energy: filters.energy,
+              mood: filters.mood,
+              acoustic: filters.acoustic,
             },
           }),
         });
@@ -136,12 +162,11 @@ export default function useRefineSearchState() {
           setIsLoading(false);
         }
       }
-    };
-
-    loadRecommendations();
+    }, 400);
 
     return () => {
       isCancelled = true;
+      window.clearTimeout(timeoutId);
     };
   }, [playlistName, filters]);
 
