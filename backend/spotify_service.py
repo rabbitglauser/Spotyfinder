@@ -74,6 +74,12 @@ class SpotifyService:
 
         return track_uri
 
+    @staticmethod
+    def first_image_url(images: list[dict[str, Any]] | None) -> str | None:
+        if not images:
+            return None
+        return images[0].get("url")
+
     def get_track(self, spotify_track_id: str, market: str | None = "CH") -> dict[str, Any]:
         params = {}
         if market:
@@ -97,12 +103,6 @@ class SpotifyService:
         response.raise_for_status()
         return response.json()
 
-    @staticmethod
-    def _first_image_url(images: list[dict[str, Any]] | None) -> str | None:
-        if not images:
-            return None
-        return images[0].get("url")
-
     def build_enrichment_from_track(self, track_data: dict[str, Any]) -> dict[str, Any]:
         album = track_data.get("album") or {}
         album_images = album.get("images") or []
@@ -115,7 +115,7 @@ class SpotifyService:
             if spotify_artist_id:
                 try:
                     full_artist = self.get_artist(spotify_artist_id)
-                    image_url = self._first_image_url(full_artist.get("images"))
+                    image_url = self.first_image_url(full_artist.get("images"))
                 except requests.RequestException:
                     image_url = None
 
@@ -135,7 +135,7 @@ class SpotifyService:
             "track_name": track_data.get("name"),
             "spotify_url": (track_data.get("external_urls") or {}).get("spotify"),
             "preview_url": track_data.get("preview_url"),
-            "cover_image_url": self._first_image_url(album_images),
+            "cover_image_url": self.first_image_url(album_images),
             "duration_ms": track_data.get("duration_ms"),
             "explicit": track_data.get("explicit"),
             "popularity": track_data.get("popularity"),
@@ -143,7 +143,7 @@ class SpotifyService:
                 "spotify_album_id": album.get("id"),
                 "name": album.get("name"),
                 "release_date": album.get("release_date"),
-                "image_url": self._first_image_url(album_images),
+                "image_url": self.first_image_url(album_images),
                 "spotify_url": (album.get("external_urls") or {}).get("spotify"),
             },
             "artists": artist_payloads,
@@ -156,3 +156,30 @@ class SpotifyService:
 
         track_data = self.get_track(spotify_track_id)
         return self.build_enrichment_from_track(track_data)
+
+    def extract_track_id(track_uri: str | None) -> str | None:
+        return SpotifyService.extract_track_id(track_uri)
+
+
+    def get_spotify_track(spotify_track_id: str, market: str = "CH") -> dict[str, Any]:
+        service = SpotifyService()
+        return service.get_track(spotify_track_id, market)
+
+
+    def get_spotify_artist(spotify_artist_id: str) -> dict[str, Any]:
+        service = SpotifyService()
+        return service.get_artist(spotify_artist_id)
+
+
+    def build_enriched_payload(track_data: dict[str, Any]) -> dict[str, Any]:
+        service = SpotifyService()
+        return service.build_enrichment_from_track(track_data)
+
+
+    def enrich_track_uri(track_uri: str | None) -> dict[str, Any] | None:
+        service = SpotifyService()
+        return service.enrich_track_uri(track_uri)
+    
+    def get_spotify_access_token() -> str:
+        service = SpotifyService()
+        return service.get_access_token()
