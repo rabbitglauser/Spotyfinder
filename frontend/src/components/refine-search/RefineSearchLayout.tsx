@@ -32,6 +32,8 @@ interface RefineSearchLayoutProps {
   tracks: RefineSearchTrack[];
   activeTrack: RefineSearchTrack;
   setActiveTrack: React.Dispatch<React.SetStateAction<RefineSearchTrack>>;
+  isLoading: boolean;
+  error: string | null;
 }
 
 function hexToRgba(hex: string, alpha: number) {
@@ -98,6 +100,8 @@ export default function RefineSearchLayout({
   tracks,
   activeTrack,
   setActiveTrack,
+  isLoading,
+  error,
 }: RefineSearchLayoutProps) {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#030303] text-white">
@@ -178,7 +182,23 @@ export default function RefineSearchLayout({
               <div className="mb-4 text-3xl font-black text-white">
                 Tracks Similar in your Playlist:
               </div>
+                {isLoading && (
+                  <div className="mb-4 text-sm font-semibold text-white/60">
+                    Loading recommendations...
+                  </div>
+                )}
 
+                {error && (
+                  <div className="mb-4 rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-300">
+                    {error}
+                  </div>
+                )}
+
+                {!isLoading && !error && tracks.length === 0 && (
+                  <div className="mb-4 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/70">
+                    No recommendations found for the current filters.
+                  </div>
+                )}
               <div className="grid gap-3 sm:grid-cols-2">
                 {tracks.map((track) => {
                   const isActive = track.id === activeTrack.id;

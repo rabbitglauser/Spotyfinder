@@ -1,16 +1,29 @@
-from fastapi import APIRouter
+import requests
+from fastapi import APIRouter, HTTPException
 
-from services.spotify_service import get_spotify_access_token, get_spotify_track
+from services.spotify_service import SpotifyService
 
 router = APIRouter()
 
 
 @router.get("/api/spotify/token-test")
 def spotify_token_test():
-    token = get_spotify_access_token()
-    return {"status": "ok", "token_preview": token[:12] + "..."}
+    try:
+        service = SpotifyService()
+        token = service.get_access_token()
+        return {"status": "ok", "token_preview": token[:12] + "..."}
+    except ValueError as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+    except requests.RequestException:
+        raise HTTPException(status_code=502, detail="Spotify token request failed")
 
 
 @router.get("/api/spotify/tracks/{spotify_track_id}")
 def spotify_track_by_id(spotify_track_id: str):
-    return get_spotify_track(spotify_track_id)
+    try:
+        service = SpotifyService()
+        return service.get_track(spotify_track_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+    except requests.RequestException:
+        raise HTTPException(status_code=502, detail="Spotify track request failed")

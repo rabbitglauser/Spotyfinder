@@ -1,105 +1,149 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  RefineSearchFilters,
+  RefineSearchTrack,
+} from "@/components/refine-search/RefineSearchLayout";
 
-type RefineSearchFilters = {
-  includeGenres: string[];
-  excludeGenres: string[];
-  popularity: number;
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+
+type StoredRefineSearchPayload = {
+  playlistName: string;
+  enrichWithSpotify: boolean;
+  filters?: {
+    includeGenres?: string[];
+    excludeGenres?: string[];
+    popularity?: number;
+    danceability?: number | null;
+    energy?: number | null;
+    mood?: number | null;
+    acoustic?: number | null;
+  };
 };
 
-type TrackPalette = {
-  primary: string;
-  secondary: string;
-  accent: string;
-  surface: string;
+type RecommendationApiResponse = {
+  count?: number;
+  items?: RefineSearchTrack[];
+  playlist_name?: string;
+  detail?: string;
 };
 
-type RefineSearchTrack = {
-  id: number;
-  title: string;
-  artist: string;
-  genres: string[];
-  followers: number;
-  monthlyListeners: number;
-  duration: string;
-  palette: TrackPalette;
+const emptyTrack: RefineSearchTrack = {
+  id: 0,
+  title: "No track selected",
+  artist: "Spotyfinder",
+  genres: [],
+  followers: 0,
+  monthlyListeners: 0,
+  duration: "0:00",
+  palette: {
+    primary: "#1f2937",
+    secondary: "#111827",
+    accent: "#19c819",
+    surface: "#030303",
+  },
 };
-
-const mockTracks: RefineSearchTrack[] = [
-  {
-    id: 1,
-    title: "Afterglow",
-    artist: "The Midnight Youth",
-    genres: ["synthpop", "indie pop", "dreamwave"],
-    followers: 248000,
-    monthlyListeners: 1300000,
-    duration: "3:42",
-    palette: {
-      primary: "#2A9D8F",
-      secondary: "#1D3557",
-      accent: "#52E3C2",
-      surface: "#101820",
-    },
-  },
-  {
-    id: 2,
-    title: "Velvet Noise",
-    artist: "Neon Harbor",
-    genres: ["alt pop", "electropop", "night drive"],
-    followers: 512000,
-    monthlyListeners: 2800000,
-    duration: "4:01",
-    palette: {
-      primary: "#7B2CBF",
-      secondary: "#240046",
-      accent: "#C77DFF",
-      surface: "#140A1F",
-    },
-  },
-  {
-    id: 3,
-    title: "Static Hearts",
-    artist: "Glass Avenue",
-    genres: ["indie rock", "modern rock", "alt"],
-    followers: 384000,
-    monthlyListeners: 1900000,
-    duration: "3:27",
-    palette: {
-      primary: "#E76F51",
-      secondary: "#5F0F40",
-      accent: "#FF9F6E",
-      surface: "#1A1013",
-    },
-  },
-  {
-    id: 4,
-    title: "Blue Motion",
-    artist: "Arctic Echo",
-    genres: ["ambient pop", "chillwave", "electronic"],
-    followers: 146000,
-    monthlyListeners: 860000,
-    duration: "4:18",
-    palette: {
-      primary: "#3A86FF",
-      secondary: "#1B263B",
-      accent: "#7CC6FE",
-      surface: "#0F1722",
-    },
-  },
-];
 
 export default function useRefineSearchState() {
+  const [playlistName, setPlaylistName] = useState("");
   const [filters, setFilters] = useState<RefineSearchFilters>({
     includeGenres: [],
     excludeGenres: [],
     popularity: 50,
   });
 
-  const [tracks] = useState<RefineSearchTrack[]>(mockTracks);
-  const [activeTrack, setActiveTrack] = useState<RefineSearchTrack>(
-    mockTracks[0]
-  );
+  const [tracks, setTracks] = useState<RefineSearchTrack[]>([]);
+  const [activeTrack, setActiveTrack] = useState<RefineSearchTrack>(emptyTrack);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const raw = localStorage.getItem("spotyfinder-refine-search");
+    if (!raw) return;
+
+    try {
+      const parsed: StoredRefineSearchPayload = JSON.parse(raw);
+
+      setPlaylistName(parsed.playlistName ?? "");
+
+      setFilters({
+        includeGenres: parsed.filters?.includeGenres ?? [],
+        excludeGenres: parsed.filters?.excludeGenres ?? [],
+        popularity: parsed.filters?.popularity ?? 50,
+      });
+    } catch (loadError) {
+      console.error("Failed to read refine search payload:", loadError);
+      setError("Failed to load refine search settings.");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!playlistName) return;
+
+    let isCancelled = false;
+
+    const loadRecommendations = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const response = await fetch(`${API_BASE_URL}/api/recommendations`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            playlist_name: playlistName,
+            limit: 8,
+            filters: {
+              includeGenres: filters.includeGenres,
+              excludeGenres: filters.excludeGenres,
+              popularity: filters.popularity,
+            },
+          }),
+        });
+
+        const data: RecommendationApiResponse = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.detail || "Failed to load recommendations.");
+        }
+
+        const nextTracks = Array.isArray(data.items) ? data.items : [];
+
+        if (isCancelled) return;
+
+        setTracks(nextTracks);
+        setActiveTrack((current) => {
+          const stillExists = nextTracks.find((track) => track.id === current.id);
+          return stillExists ?? nextTracks[0] ?? emptyTrack;
+        });
+      } catch (requestError) {
+        if (isCancelled) return;
+
+        const message =
+          requestError instanceof Error
+            ? requestError.message
+            : "Failed to load recommendations.";
+
+        setError(message);
+        setTracks([]);
+        setActiveTrack(emptyTrack);
+      } finally {
+        if (!isCancelled) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadRecommendations();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [playlistName, filters]);
 
   return {
     filters,
@@ -107,5 +151,7 @@ export default function useRefineSearchState() {
     tracks,
     activeTrack,
     setActiveTrack,
+    isLoading,
+    error,
   };
 }
