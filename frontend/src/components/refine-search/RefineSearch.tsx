@@ -1,11 +1,19 @@
 "use client";
+
 import React from "react";
 import useRefineSearchState from "@/hooks/useRefineSearchState";
 import RefineSearchLayout from "./RefineSearchLayout";
 
 export default function RefineSearch() {
-  const { filters, setFilters, tracks, activeTrack, setActiveTrack } =
-    useRefineSearchState();
+  const {
+    filters,
+    setFilters,
+    tracks,
+    activeTrack,
+    setActiveTrack,
+    isLoading,
+    error,
+  } = useRefineSearchState();
 
   return (
     <RefineSearchLayout
@@ -14,6 +22,8 @@ export default function RefineSearch() {
       tracks={tracks}
       activeTrack={activeTrack}
       setActiveTrack={setActiveTrack}
+      isLoading={isLoading}
+      error={error}
     />
   );
 }
