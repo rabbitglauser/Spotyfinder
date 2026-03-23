@@ -157,28 +157,38 @@ function OptionalSlider({
   );
 }
 
-function genreCard(
-  genres: string[],
-  accent: string,
-  emptyText: string = "No genres available"
-) {
-  if (genres.length === 0) {
-    return <span className="text-sm text-white/40">{emptyText}</span>;
+function GenrePills({
+  genres,
+  accent,
+}: {
+  genres: string[];
+  accent: string;
+}) {
+  if (!genres || genres.length === 0) {
+    return (
+      <div className="text-sm font-medium text-white/40">
+        No genres returned for this track.
+      </div>
+    );
   }
 
-  return genres.map((genre) => (
-    <span
-      key={genre}
-      className="rounded-full border px-3 py-1.5 text-sm font-bold"
-      style={{
-        borderColor: hexToRgba(accent, 0.35),
-        color: accent,
-        backgroundColor: hexToRgba(accent, 0.08),
-      }}
-    >
-      {genre}
-    </span>
-  ));
+  return (
+    <div className="flex flex-wrap gap-2">
+      {genres.map((genre) => (
+        <span
+          key={genre}
+          className="rounded-full border px-3 py-1.5 text-sm font-bold"
+          style={{
+            borderColor: hexToRgba(accent, 0.35),
+            color: accent,
+            backgroundColor: hexToRgba(accent, 0.08),
+          }}
+        >
+          {genre}
+        </span>
+      ))}
+    </div>
+  );
 }
 
 export default function RefineSearchLayout({
@@ -190,18 +200,19 @@ export default function RefineSearchLayout({
   isLoading,
   error,
 }: RefineSearchLayoutProps) {
-  const activeAccent = activeTrack.palette.accent || "#1ed760";
-  const activePrimary = activeTrack.palette.primary || "#1db954";
-  const activeSecondary = activeTrack.palette.secondary || "#79f2a3";
+  const themePrimary = activeTrack.palette.primary || "#1ed760";
+  const themeSecondary =
+    activeTrack.palette.secondary || activeTrack.palette.primary || "#79f2a3";
+  const themeAccent = activeTrack.palette.primary || "#1ed760";
 
   return (
     <div
       className="page-shell page-shell--locked"
       style={
         {
-          "--theme-accent": activeAccent,
-          "--theme-dominant": activePrimary,
-          "--theme-warm": activeSecondary,
+          "--theme-accent": themeAccent,
+          "--theme-dominant": themePrimary,
+          "--theme-warm": themeSecondary,
           "--theme-deep": "#0b0d0f",
           "--theme-panel": "#101314",
           "--theme-soft": "rgba(255,255,255,0.82)",
@@ -234,8 +245,8 @@ export default function RefineSearchLayout({
             </div>
           </div>
 
-          <div className="grid min-h-0 flex-1 gap-5 xl:grid-cols-[0.86fr_1.14fr]">
-            <div className="flex min-h-0 flex-col gap-5">
+          <div className="grid min-h-0 flex-1 gap-5 xl:grid-cols-[0.84fr_1.16fr]">
+            <div className="grid min-h-0 gap-5 xl:grid-rows-[minmax(0,1fr)_minmax(280px,0.72fr)]">
               <div className="glass-panel flex min-h-0 flex-col rounded-[32px] p-4 md:p-5">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div className="section-pill px-4 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white/55">
@@ -251,18 +262,11 @@ export default function RefineSearchLayout({
                     <div className="section-pill px-4 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white/55">
                       Include genres
                     </div>
-                    <div className="soft-panel flex min-h-[72px] flex-wrap gap-2 rounded-[24px] p-4">
-                      {filters.includeGenres.length > 0 ? (
-                        genreCard(
-                          filters.includeGenres,
-                          activeAccent,
-                          "No include genres"
-                        )
-                      ) : (
-                        <span className="text-sm text-white/40">
-                          No include genres
-                        </span>
-                      )}
+                    <div className="soft-panel min-h-[72px] rounded-[24px] p-4">
+                      <GenrePills
+                        genres={filters.includeGenres}
+                        accent={themeAccent}
+                      />
                     </div>
                   </div>
 
@@ -270,18 +274,11 @@ export default function RefineSearchLayout({
                     <div className="section-pill px-4 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white/55">
                       Exclude genres
                     </div>
-                    <div className="soft-panel flex min-h-[72px] flex-wrap gap-2 rounded-[24px] p-4">
-                      {filters.excludeGenres.length > 0 ? (
-                        genreCard(
-                          filters.excludeGenres,
-                          activeAccent,
-                          "No exclude genres"
-                        )
-                      ) : (
-                        <span className="text-sm text-white/40">
-                          No exclude genres
-                        </span>
-                      )}
+                    <div className="soft-panel min-h-[72px] rounded-[24px] p-4">
+                      <GenrePills
+                        genres={filters.excludeGenres}
+                        accent={themeAccent}
+                      />
                     </div>
                   </div>
 
@@ -367,10 +364,10 @@ export default function RefineSearchLayout({
                 </div>
               </div>
 
-              <div className="glass-panel flex min-h-0 flex-1 flex-col rounded-[32px] p-4 md:p-5">
+              <div className="glass-panel flex min-h-0 flex-col rounded-[32px] p-4 md:p-5">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div className="text-2xl font-black text-white">
-                    Similar tracks in your playlist
+                    Similar tracks you might like
                   </div>
                   <div className="text-xs text-white/35">
                     Click a card to focus it
@@ -398,6 +395,10 @@ export default function RefineSearchLayout({
                 <div className="panel-scroll grid gap-3 sm:grid-cols-2">
                   {tracks.map((track) => {
                     const isActive = track.id === activeTrack.id;
+                    const cardPrimary = track.palette.primary || themePrimary;
+                    const cardSecondary =
+                      track.palette.secondary || track.palette.primary || themeSecondary;
+                    const cardAccent = track.palette.primary || themeAccent;
 
                     return (
                       <button
@@ -407,17 +408,17 @@ export default function RefineSearchLayout({
                         className="group flex items-center gap-3 rounded-[22px] border p-3 text-left transition duration-200 hover:-translate-y-[1px]"
                         style={{
                           borderColor: isActive
-                            ? hexToRgba(track.palette.accent, 0.42)
+                            ? hexToRgba(cardAccent, 0.42)
                             : "rgba(255,255,255,0.08)",
                           background: `linear-gradient(135deg, ${hexToRgba(
-                            track.palette.primary,
+                            cardPrimary,
                             isActive ? 0.24 : 0.14
                           )}, ${hexToRgba(
-                            track.palette.secondary,
-                            isActive ? 0.12 : 0.05
+                            cardSecondary,
+                            isActive ? 0.14 : 0.06
                           )})`,
                           boxShadow: isActive
-                            ? `0 0 32px ${hexToRgba(track.palette.accent, 0.16)}`
+                            ? `0 0 32px ${hexToRgba(cardAccent, 0.16)}`
                             : "none",
                         }}
                       >
@@ -431,7 +432,7 @@ export default function RefineSearchLayout({
                           <div
                             className="h-14 w-14 rounded-2xl"
                             style={{
-                              background: `linear-gradient(135deg, ${track.palette.primary}, ${track.palette.secondary})`,
+                              background: `linear-gradient(135deg, ${cardPrimary}, ${cardSecondary})`,
                             }}
                           />
                         )}
@@ -449,11 +450,8 @@ export default function RefineSearchLayout({
                               <span
                                 className="rounded-full border px-2 py-1"
                                 style={{
-                                  borderColor: hexToRgba(track.palette.accent, 0.28),
-                                  backgroundColor: hexToRgba(
-                                    track.palette.accent,
-                                    0.08
-                                  ),
+                                  borderColor: hexToRgba(cardAccent, 0.28),
+                                  backgroundColor: hexToRgba(cardAccent, 0.08),
                                 }}
                               >
                                 {track.popularity}/100
@@ -473,132 +471,128 @@ export default function RefineSearchLayout({
               <div
                 className="relative h-full min-h-0 overflow-hidden rounded-[28px] border p-4 md:p-5"
                 style={{
-                  borderColor: hexToRgba(activeAccent, 0.28),
+                  borderColor: hexToRgba(themeAccent, 0.28),
                   background: `linear-gradient(135deg, ${hexToRgba(
-                    activePrimary,
+                    themePrimary,
                     0.24
-                  )}, ${hexToRgba(activeSecondary, 0.12)})`,
+                  )}, ${hexToRgba(themeSecondary, 0.12)})`,
                 }}
               >
                 <div
                   className="pointer-events-none absolute -right-16 top-6 h-56 w-56 rounded-full blur-3xl"
                   style={{
-                    background: hexToRgba(activeAccent, 0.22),
+                    background: hexToRgba(themePrimary, 0.24),
                   }}
                 />
                 <div
                   className="pointer-events-none absolute -bottom-20 left-1/3 h-52 w-52 rounded-full blur-3xl"
                   style={{
-                    background: hexToRgba(activePrimary, 0.18),
+                    background: hexToRgba(themeSecondary, 0.2),
                   }}
                 />
 
-                <div className="relative grid h-full min-h-0 gap-4 xl:grid-cols-[1.12fr_0.88fr]">
-                  <div className="min-h-0 space-y-4">
-                    <div className="glass-subpanel rounded-[28px] p-4 md:p-5">
-                      <div className="grid gap-4 md:grid-cols-[7.5rem_1fr]">
-                        <div
-                          className="cover-glow overflow-hidden rounded-[24px] border"
-                          style={{
-                            borderColor: hexToRgba(activeAccent, 0.24),
-                          }}
-                        >
-                          {activeTrack.coverImageUrl ? (
-                            <img
-                              src={activeTrack.coverImageUrl}
-                              alt={activeTrack.title}
-                              className="aspect-square h-full w-full object-cover"
-                            />
+              <div className="relative grid h-full min-h-0 gap-4 xl:grid-cols-[minmax(0,1fr)_340px]">
+                <div className="grid min-h-0 content-start gap-4">
+                  <div className="glass-subpanel rounded-[28px] p-4 md:p-5">
+                    <div className="flex flex-col gap-4 md:flex-row">
+                      <div
+                        className="cover-glow h-36 w-36 shrink-0 overflow-hidden rounded-[24px] border"
+                        style={{
+                          borderColor: hexToRgba(themeAccent, 0.24),
+                        }}
+                      >
+                        {activeTrack.coverImageUrl ? (
+                          <img
+                            src={activeTrack.coverImageUrl}
+                            alt={activeTrack.title}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div
+                            className="h-full w-full"
+                            style={{
+                              background: `linear-gradient(135deg, ${themePrimary}, ${themeSecondary})`,
+                            }}
+                          />
+                        )}
+                      </div>
+
+                      <div className="flex min-w-0 flex-1 flex-col justify-between gap-4">
+                        <div>
+                          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white/58">
+                            <Sparkles className="h-3.5 w-3.5" />
+                            now focused
+                          </div>
+
+                          <div className="mt-4 text-3xl font-black leading-tight text-white">
+                            {activeTrack.title}
+                          </div>
+                          <div className="mt-1 text-sm text-white/68">
+                            {activeTrack.artist}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-3">
+                          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-2 text-white/85">
+                            <SkipBack className="h-4 w-4" />
+                            <div className="rounded-full border border-white/10 bg-white/[0.08] p-2">
+                              <Pause className="h-4 w-4" />
+                            </div>
+                            <SkipForward className="h-4 w-4" />
+                          </div>
+
+                          {activeTrack.previewUrl ? (
+                            <a
+                              href={activeTrack.previewUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="spotify-button rounded-full px-4 py-2 text-xs font-black"
+                            >
+                              Open preview
+                            </a>
                           ) : (
-                            <div
-                              className="aspect-square h-full w-full"
-                              style={{
-                                background: `linear-gradient(135deg, ${activePrimary}, ${activeSecondary})`,
-                              }}
-                            />
+                            <div className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-white/42">
+                              No preview
+                            </div>
                           )}
                         </div>
 
-                        <div className="flex flex-col justify-between gap-4">
-                          <div>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white/58">
-                              <Sparkles className="h-3.5 w-3.5" />
-                              now focused
-                            </div>
-
-                            <div className="mt-4 text-3xl font-black leading-tight text-white">
-                              {activeTrack.title}
-                            </div>
-                            <div className="mt-1 text-sm text-white/68">
-                              {activeTrack.artist}
-                            </div>
+                        <div>
+                          <div className="mb-2 h-2 rounded-full bg-white/12">
+                            <div
+                              className="h-2 rounded-full"
+                              style={{
+                                width: "58%",
+                                backgroundColor: themeAccent,
+                                boxShadow: `0 0 16px ${hexToRgba(themeAccent, 0.32)}`,
+                              }}
+                            />
                           </div>
 
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-2 text-white/85">
-                              <SkipBack className="h-4 w-4" />
-                              <div className="rounded-full border border-white/10 bg-white/[0.08] p-2">
-                                <Pause className="h-4 w-4" />
-                              </div>
-                              <SkipForward className="h-4 w-4" />
-                            </div>
-
-                            {activeTrack.previewUrl ? (
-                              <a
-                                href={activeTrack.previewUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="spotify-button rounded-full px-4 py-2 text-xs font-black"
-                              >
-                                Open preview
-                              </a>
-                            ) : (
-                              <div className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-white/42">
-                                No preview
-                              </div>
-                            )}
-                          </div>
-
-                          <div>
-                            <div className="mb-2 h-2 rounded-full bg-white/12">
-                              <div
-                                className="h-2 rounded-full"
-                                style={{
-                                  width: "58%",
-                                  backgroundColor: activeAccent,
-                                  boxShadow: `0 0 16px ${hexToRgba(
-                                    activeAccent,
-                                    0.32
-                                  )}`,
-                                }}
-                              />
-                            </div>
-
-                            <div className="flex justify-between text-xs text-white/55">
-                              <span>1:20</span>
-                              <span>{activeTrack.duration}</span>
-                            </div>
+                          <div className="flex justify-between text-xs text-white/55">
+                            <span>1:20</span>
+                            <span>{activeTrack.duration}</span>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="grid min-h-0 gap-4 lg:grid-cols-[0.82fr_1fr]">
-                      <div className="glass-subpanel rounded-[24px] p-4">
-                        <div
-                          className="mb-4 text-3xl font-black"
-                          style={{ color: activeAccent }}
-                        >
-                          Genre
-                        </div>
-
-                        <div className="flex flex-wrap gap-2">
-                          {genreCard(activeTrack.genres, activeAccent)}
-                        </div>
+                  <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_260px]">
+                    <div className="glass-subpanel rounded-[24px] p-4">
+                      <div
+                        className="mb-4 text-3xl font-black"
+                        style={{ color: themeAccent }}
+                      >
+                        Genre
                       </div>
 
-                      <div className="overflow-hidden rounded-[24px] border border-white/10 bg-black/18">
-                        <div className="relative aspect-[1.15/1] w-full overflow-hidden">
+                      <GenrePills genres={activeTrack.genres} accent={themeAccent} />
+                    </div>
+
+                    <div className="glass-subpanel self-start rounded-[24px] p-4">
+                      <div className="overflow-hidden rounded-[20px] border border-white/10">
+                        <div className="aspect-square w-full overflow-hidden">
                           {activeTrack.coverImageUrl ? (
                             <img
                               src={activeTrack.coverImageUrl}
@@ -609,38 +603,60 @@ export default function RefineSearchLayout({
                             <div
                               className="h-full w-full"
                               style={{
-                                background: `linear-gradient(135deg, ${activePrimary}, ${activeSecondary})`,
+                                background: `linear-gradient(135deg, ${themePrimary}, ${themeSecondary})`,
                               }}
                             />
                           )}
+                        </div>
+                      </div>
 
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                      <div className="mt-4 grid grid-cols-2 gap-4">
+                        <div>
+                          <div className="text-4xl font-black text-white">
+                            {activeTrack.popularity ?? 0}
+                            <span className="text-xl text-white/55">/100</span>
+                          </div>
+                          <div className="mt-1 text-xs text-white/55">Popularity</div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 p-4">
-                          <div>
-                            <div className="text-4xl font-black text-white">
-                              {activeTrack.popularity ?? 0}
-                              <span className="text-xl text-white/55">/100</span>
-                            </div>
-                            <div className="mt-1 text-xs text-white/55">
-                              Popularity
-                            </div>
+                        <div>
+                          <div className="text-4xl font-black text-white">
+                            {activeTrack.genres.length}
                           </div>
-
-                          <div>
-                            <div className="text-4xl font-black text-white">
-                              {activeTrack.genres.length}
-                            </div>
-                            <div className="mt-1 text-xs text-white/55">
-                              Matched genres
-                            </div>
-                          </div>
+                          <div className="mt-1 text-xs text-white/55">Matched genres</div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
 
+  <div className="glass-subpanel flex min-h-0 flex-col rounded-[28px] p-4 md:p-5">
+    <div className="mb-4 flex items-center gap-2 text-sm font-black text-white/80">
+      <TrendingUp className="h-4 w-4" />
+      Why this matches
+    </div>
+
+    <div className="panel-scroll space-y-3 text-sm text-white/72">
+      {activeTrack.matchReasons && activeTrack.matchReasons.length > 0 ? (
+        activeTrack.matchReasons.map((reason, index) => (
+          <div
+            key={`${reason}-${index}`}
+            className="rounded-[20px] border border-white/10 bg-white/[0.05] px-4 py-3"
+            style={{
+              boxShadow: `inset 0 0 0 1px ${hexToRgba(themeAccent, 0.06)}`,
+            }}
+          >
+            {reason}
+          </div>
+        ))
+      ) : (
+        <div className="rounded-[20px] border border-white/10 bg-white/[0.05] px-4 py-3">
+          No match explanation available.
+        </div>
+      )}
+    </div>
+  </div>
+</div>
                   <div className="glass-subpanel flex min-h-0 flex-col rounded-[28px] p-4 md:p-5">
                     <div className="mb-4 flex items-center gap-2 text-sm font-black text-white/80">
                       <TrendingUp className="h-4 w-4" />
@@ -656,7 +672,7 @@ export default function RefineSearchLayout({
                             className="rounded-[20px] border border-white/10 bg-white/[0.05] px-4 py-3"
                             style={{
                               boxShadow: `inset 0 0 0 1px ${hexToRgba(
-                                activeAccent,
+                                themeAccent,
                                 0.06
                               )}`,
                             }}
@@ -677,6 +693,5 @@ export default function RefineSearchLayout({
           </div>
         </div>
       </div>
-    </div>
   );
 }

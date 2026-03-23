@@ -34,8 +34,13 @@ body {
   color: white;
   cursor: default;
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 * {
@@ -117,7 +122,7 @@ video {
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.24);
 }
 
 /* ---------- animations ---------- */
@@ -127,7 +132,7 @@ video {
     transform: translate3d(0px, 0px, 0px) scale(1);
   }
   50% {
-    transform: translate3d(36px, 22px, 0px) scale(1.08);
+    transform: translate3d(44px, 18px, 0px) scale(1.1);
   }
   100% {
     transform: translate3d(0px, 0px, 0px) scale(1);
@@ -139,7 +144,7 @@ video {
     transform: translate3d(0px, 0px, 0px) scale(1);
   }
   50% {
-    transform: translate3d(-34px, 30px, 0px) scale(0.95);
+    transform: translate3d(-34px, 28px, 0px) scale(0.94);
   }
   100% {
     transform: translate3d(0px, 0px, 0px) scale(1);
@@ -152,7 +157,7 @@ video {
     opacity: 0.72;
   }
   50% {
-    transform: translate3d(24px, -18px, 0px) scale(1.06);
+    transform: translate3d(24px, -18px, 0px) scale(1.08);
     opacity: 1;
   }
   100% {
@@ -163,15 +168,15 @@ video {
 
 @keyframes pulseGlow {
   0% {
-    opacity: 0.45;
+    opacity: 0.35;
     transform: scale(1);
   }
   50% {
-    opacity: 0.8;
-    transform: scale(1.04);
+    opacity: 0.85;
+    transform: scale(1.06);
   }
   100% {
-    opacity: 0.45;
+    opacity: 0.35;
     transform: scale(1);
   }
 }
@@ -187,8 +192,8 @@ video {
   background:
     radial-gradient(
       circle at 10% 12%,
-      color-mix(in srgb, var(--theme-accent) 10%, transparent) 0%,
-      transparent 34%
+      color-mix(in srgb, var(--theme-accent) 12%, transparent) 0%,
+      transparent 32%
     ),
     radial-gradient(
       circle at 84% 88%,
@@ -220,13 +225,13 @@ video {
 
 @media (min-width: 768px) {
   .page-content {
-    padding: 1.75rem 2rem;
+    padding: 1.5rem 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .page-content {
-    padding: 1.75rem 2.5rem;
+    padding: 1.5rem 2.25rem;
   }
 
   .page-shell--locked {
@@ -244,10 +249,78 @@ video {
   font-weight: 900;
   letter-spacing: -0.05em;
   line-height: 0.92;
-  color: color-mix(in srgb, var(--theme-accent) 78%, #1ed760 22%);
+  color: color-mix(in srgb, var(--theme-accent) 82%, #1ed760 18%);
   text-shadow:
-    0 0 28px color-mix(in srgb, var(--theme-accent) 14%, transparent),
-    0 0 56px color-mix(in srgb, var(--theme-accent) 6%, transparent);
+    0 0 28px color-mix(in srgb, var(--theme-accent) 18%, transparent),
+    0 0 64px color-mix(in srgb, var(--theme-accent) 8%, transparent);
+}
+
+/* ---------- animations ---------- */
+
+@keyframes driftOne {
+  0% {
+    transform: translate3d(0px, 0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate3d(44px, 18px, 0px) scale(1.1);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px) scale(1);
+  }
+}
+
+@keyframes driftTwo {
+  0% {
+    transform: translate3d(0px, 0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate3d(-34px, 28px, 0px) scale(0.94);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px) scale(1);
+  }
+}
+
+@keyframes driftThree {
+  0% {
+    transform: translate3d(0px, 0px, 0px) scale(1);
+    opacity: 0.72;
+  }
+  50% {
+    transform: translate3d(24px, -18px, 0px) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px) scale(1);
+    opacity: 0.72;
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+}
+
+@keyframes meshShift {
+  0% {
+    transform: translate3d(0%, 0%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-2%, 2%, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(0%, 0%, 0) scale(1);
+  }
 }
 
 /* ---------- animated background ---------- */
@@ -259,67 +332,66 @@ video {
   overflow: hidden;
   background:
     radial-gradient(
-      circle at 12% 10%,
-      color-mix(in srgb, var(--theme-accent) 18%, transparent) 0%,
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 82% 86%,
-      color-mix(in srgb, var(--theme-warm) 20%, transparent) 0%,
+      circle at 14% 12%,
+      color-mix(in srgb, var(--theme-accent) 28%, transparent) 0%,
       transparent 30%
     ),
     radial-gradient(
-      circle at 56% 34%,
-      color-mix(in srgb, var(--theme-dominant) 16%, transparent) 0%,
+      circle at 84% 86%,
+      color-mix(in srgb, var(--theme-warm) 24%, transparent) 0%,
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 50% 40%,
+      color-mix(in srgb, var(--theme-dominant) 20%, transparent) 0%,
       transparent 24%
     ),
-    linear-gradient(180deg, #030303 0%, #050706 50%, #030303 100%);
+    linear-gradient(180deg, #030303 0%, #040605 50%, #030303 100%);
 }
 
 .ambient-bg::before {
   content: "";
   position: absolute;
-  inset: 0;
-  opacity: 0.18;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 74px 74px;
-  mask-image: radial-gradient(circle at center, black 32%, transparent 92%);
+  inset: -8%;
+  opacity: 0.45;
+  filter: blur(38px);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(30, 215, 96, 0.22) 0%, transparent 34%),
+    radial-gradient(circle at 72% 28%, rgba(29, 185, 84, 0.18) 0%, transparent 30%),
+    radial-gradient(circle at 82% 78%, rgba(121, 242, 163, 0.18) 0%, transparent 34%),
+    radial-gradient(circle at 48% 72%, rgba(30, 215, 96, 0.14) 0%, transparent 28%);
+  animation: meshShift 24s ease-in-out infinite;
 }
 
 .ambient-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.18;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.08) 0%,
-      transparent 16%,
-      transparent 84%,
-      rgba(255, 255, 255, 0.06) 100%
-    );
-  mix-blend-mode: soft-light;
+  opacity: 0.14;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 34%, transparent 92%);
 }
 
 .ambient-orb {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(72px);
+  filter: blur(82px);
   will-change: transform;
+  opacity: 0.95;
 }
 
 .ambient-orb--one {
   left: -120px;
-  top: -60px;
-  height: 480px;
-  width: 480px;
+  top: -80px;
+  height: 520px;
+  width: 520px;
   background: radial-gradient(
     circle,
-    color-mix(in srgb, var(--theme-accent) 24%, transparent) 0%,
-    color-mix(in srgb, var(--theme-accent) 8%, transparent) 46%,
+    color-mix(in srgb, var(--theme-accent) 34%, transparent) 0%,
+    color-mix(in srgb, var(--theme-accent) 10%, transparent) 46%,
     transparent 72%
   );
   animation: driftOne 22s ease-in-out infinite;
@@ -327,55 +399,55 @@ video {
 
 .ambient-orb--two {
   left: 22%;
-  top: 10%;
-  height: 320px;
-  width: 320px;
+  top: 8%;
+  height: 360px;
+  width: 360px;
   background: radial-gradient(
     circle,
-    color-mix(in srgb, var(--theme-dominant) 18%, transparent) 0%,
-    transparent 70%
+    color-mix(in srgb, var(--theme-dominant) 24%, transparent) 0%,
+    transparent 72%
   );
   animation: driftTwo 26s ease-in-out infinite;
 }
 
 .ambient-orb--three {
-  right: -120px;
+  right: -140px;
   bottom: -120px;
-  height: 520px;
-  width: 520px;
+  height: 600px;
+  width: 600px;
   background: radial-gradient(
     circle,
-    color-mix(in srgb, var(--theme-warm) 24%, transparent) 0%,
-    color-mix(in srgb, var(--theme-accent) 10%, transparent) 42%,
+    color-mix(in srgb, var(--theme-warm) 28%, transparent) 0%,
+    color-mix(in srgb, var(--theme-accent) 12%, transparent) 42%,
     transparent 74%
   );
   animation: driftThree 24s ease-in-out infinite;
 }
 
 .ambient-orb--four {
-  left: 38%;
-  bottom: 6%;
-  height: 260px;
-  width: 260px;
+  left: 34%;
+  bottom: 10%;
+  height: 320px;
+  width: 320px;
   background: radial-gradient(
     circle,
-    color-mix(in srgb, white 8%, transparent) 0%,
+    color-mix(in srgb, white 10%, transparent) 0%,
     transparent 70%
   );
   animation: driftTwo 30s ease-in-out infinite;
 }
 
 .ambient-orb--five {
-  right: 22%;
-  top: 20%;
-  height: 180px;
-  width: 180px;
+  right: 18%;
+  top: 18%;
+  height: 260px;
+  width: 260px;
   background: radial-gradient(
     circle,
-    color-mix(in srgb, var(--theme-accent) 14%, transparent) 0%,
+    color-mix(in srgb, var(--theme-accent) 22%, transparent) 0%,
     transparent 72%
   );
-  animation: pulseGlow 14s ease-in-out infinite;
+  animation: pulseGlow 16s ease-in-out infinite;
 }
 
 /* ---------- reusable panels ---------- */
@@ -388,16 +460,16 @@ video {
     color-mix(in srgb, var(--theme-deep) 88%, transparent) 100%
   );
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
     0 24px 70px color-mix(in srgb, black 72%, transparent),
-    0 0 42px color-mix(in srgb, var(--theme-accent) 8%, transparent);
+    0 0 42px color-mix(in srgb, var(--theme-accent) 10%, transparent);
   backdrop-filter: blur(22px) saturate(140%);
 }
 
 .glass-panel--accent {
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--theme-panel) 84%, var(--theme-accent) 8%) 0%,
+    color-mix(in srgb, var(--theme-panel) 86%, var(--theme-accent) 8%) 0%,
     color-mix(in srgb, var(--theme-deep) 88%, transparent) 100%
   );
 }
@@ -406,7 +478,7 @@ video {
   border: 1px solid color-mix(in srgb, var(--theme-soft) 10%, transparent);
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--theme-deep) 44%, transparent),
+    color-mix(in srgb, var(--theme-deep) 50%, transparent),
     color-mix(in srgb, var(--theme-dominant) 18%, transparent)
   );
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -415,22 +487,20 @@ video {
 
 .soft-panel {
   border: 1px solid color-mix(in srgb, var(--theme-soft) 10%, transparent);
-  background: color-mix(in srgb, var(--theme-deep) 40%, transparent);
+  background: color-mix(in srgb, var(--theme-deep) 42%, transparent);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .panel-scroll {
   min-height: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 0.25rem;
 }
 
-.accent-glow {
-  box-shadow: 0 0 28px color-mix(in srgb, var(--theme-accent) 16%, transparent);
-}
-
-.warm-glow {
-  box-shadow: 0 0 28px color-mix(in srgb, var(--theme-warm) 18%, transparent);
+.mock-ui {
+  pointer-events: none;
+  user-select: none;
 }
 
 /* ---------- buttons ---------- */
@@ -507,7 +577,7 @@ video {
     rgba(255, 255, 255, 0.08),
     rgba(255, 255, 255, 0.03)
   );
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.62);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -562,14 +632,6 @@ video {
   opacity: 0.45;
 }
 
-.themed-slider:disabled::-webkit-slider-thumb {
-  box-shadow: none;
-}
-
-.themed-slider:disabled::-moz-range-thumb {
-  box-shadow: none;
-}
-
 /* ---------- cover glow ---------- */
 
 .cover-glow {
@@ -585,7 +647,7 @@ video {
   filter: blur(28px);
   background: radial-gradient(
     circle,
-    color-mix(in srgb, var(--theme-accent) 22%, transparent) 0%,
+    color-mix(in srgb, var(--theme-accent) 24%, transparent) 0%,
     transparent 72%
   );
   z-index: 0;

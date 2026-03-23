@@ -91,23 +91,19 @@ function GenreInputField({
         />
 
         <div className="mt-3 flex min-h-[36px] flex-wrap gap-2">
-          {values.length === 0 ? (
-            <span className="text-sm text-white/35">No genres added yet</span>
-          ) : (
-            values.map((genre) => (
-              <button
-                key={genre}
-                type="button"
-                onClick={() => onRemove(genre)}
-                className="genre-pill group inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold transition hover:border-red-400/40 hover:bg-red-500/10 hover:text-red-200"
-              >
-                <span>{genre}</span>
-                <span className="text-xs opacity-0 transition group-hover:opacity-100">
-                  ✕
-                </span>
-              </button>
-            ))
-          )}
+          {values.map((genre) => (
+            <button
+              key={genre}
+              type="button"
+              onClick={() => onRemove(genre)}
+              className="genre-pill group inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold transition hover:border-red-400/40 hover:bg-red-500/10 hover:text-red-200"
+            >
+              <span>{genre}</span>
+              <span className="text-xs opacity-0 transition group-hover:opacity-100">
+                ✕
+              </span>
+            </button>
+          ))}
         </div>
       </div>
     </div>
@@ -192,6 +188,19 @@ export default function RecommendationLayout({
   onFind,
 }: RecommendationLayoutProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isDragActive, setIsDragActive] = useState(false);
+
+  const handleDroppedFile = (file: File) => {
+    if (!fileInputRef.current) return;
+
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    fileInputRef.current.files = dt.files;
+
+    onFileChange({
+      target: fileInputRef.current,
+    } as React.ChangeEvent<HTMLInputElement>);
+  };
 
   return (
     <div
@@ -231,109 +240,111 @@ export default function RecommendationLayout({
             <div className="glass-panel glass-panel--accent flex min-h-0 flex-col rounded-[32px] p-5 md:p-6">
               <input
                 ref={fileInputRef}
+                id="playlistCsv"
                 type="file"
                 accept=".csv,text/csv"
                 className="hidden"
                 onChange={onFileChange}
               />
 
-              <div className="flex h-full min-h-0 flex-col justify-between gap-6">
-                <div className="text-center">
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="spotify-button-dark mx-auto flex h-24 w-24 items-center justify-center rounded-full"
-                  >
+              <div className="grid min-h-0 flex-1 gap-4 xl:grid-rows-[minmax(0,1fr)_auto_auto]">
+                <label
+                  htmlFor="playlistCsv"
+                  onDragEnter={() => setIsDragActive(true)}
+                  onDragOver={(event) => {
+                    event.preventDefault();
+                    setIsDragActive(true);
+                  }}
+                  onDragLeave={() => setIsDragActive(false)}
+                  onDrop={(event) => {
+                    event.preventDefault();
+                    setIsDragActive(false);
+                    const file = event.dataTransfer.files?.[0];
+                    if (file) handleDroppedFile(file);
+                  }}
+                  className={`flex min-h-[340px] cursor-pointer flex-col items-center justify-center rounded-[28px] border-2 border-dashed p-8 text-center transition ${
+                    isDragActive
+                      ? "border-[var(--theme-accent)] bg-white/[0.05]"
+                      : "border-white/12 bg-black/15"
+                  }`}
+                >
+                  <div className="spotify-button-dark flex h-24 w-24 items-center justify-center rounded-full">
                     <Upload className="h-10 w-10 text-white/80" />
-                  </button>
+                  </div>
 
-                  <div className="mx-auto mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white/55">
+                  <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white/55">
                     <Sparkles className="h-4 w-4" />
-                    exportify flow
+                    drag & drop
                   </div>
 
                   <h2 className="mt-5 text-4xl font-black tracking-tight text-white md:text-5xl">
-                    Upload CSV
+                    Drop your CSV
                   </h2>
+
                   <p className="mx-auto mt-3 max-w-lg text-sm text-soft">
-                    Wähle deine Exportify-Datei aus und importiere sie direkt ins
-                    Backend.
+                    Zieh deine Exportify-Datei hier hinein oder klick in dieses
+                    Feld.
                   </p>
+
+                  {selectedFile && (
+                    <div className="mt-5 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm font-semibold text-white/80">
+                      {selectedFile.name}
+                    </div>
+                  )}
+                </label>
+
+                <div className="soft-panel rounded-[24px] p-4">
+                  <label
+                    htmlFor="playlistName"
+                    className="mb-2 block text-sm font-semibold text-white/70"
+                  >
+                    Playlist name
+                  </label>
+                  <input
+                    id="playlistName"
+                    type="text"
+                    value={playlistName}
+                    onChange={(event) => setPlaylistName(event.target.value)}
+                    placeholder="z. B. Gym Mix 2026"
+                    className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none placeholder:text-white/28"
+                  />
                 </div>
 
                 <div className="space-y-4">
-                  <div>
-                    <label
-                      htmlFor="playlistName"
-                      className="mb-2 block text-sm font-semibold text-white/70"
-                    >
-                      Playlist name
-                    </label>
-                    <input
-                      id="playlistName"
-                      type="text"
-                      value={playlistName}
-                      onChange={(event) => setPlaylistName(event.target.value)}
-                      placeholder="z. B. Gym Mix 2026"
-                      className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none placeholder:text-white/28"
-                    />
-                  </div>
-
-                  <div className="grid gap-4 md:grid-cols-[1fr_auto]">
-                    <div className="soft-panel rounded-[24px] p-4">
-                      <div className="flex items-center justify-between gap-4">
-                        <div>
-                          <div className="text-sm font-black text-white">
-                            Enrich with Spotify
-                          </div>
-                          <div className="text-xs text-white/42">
-                            Zusätzliche Spotify-Daten mitverwenden
-                          </div>
+                  <div className="soft-panel rounded-[24px] p-4">
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <div className="text-sm font-black text-white">
+                          Enrich with Spotify
                         </div>
-
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setEnrichWithSpotify((current) => !current)
-                          }
-                          className="relative h-7 w-14 rounded-full transition"
-                          style={{
-                            background: enrichWithSpotify
-                              ? "linear-gradient(90deg, var(--theme-accent), var(--theme-warm))"
-                              : "rgba(255,255,255,0.12)",
-                            boxShadow: enrichWithSpotify
-                              ? "0 0 18px color-mix(in srgb, var(--theme-accent) 22%, transparent)"
-                              : "none",
-                          }}
-                        >
-                          <span
-                            className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
-                              enrichWithSpotify ? "left-8" : "left-1"
-                            }`}
-                          />
-                        </button>
+                        <div className="text-xs text-white/42">
+                          Zusätzliche Spotify-Daten mitverwenden
+                        </div>
                       </div>
-                    </div>
 
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="spotify-button-dark rounded-[24px] px-5 py-4 text-sm font-black"
-                    >
-                      Datei auswählen
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setEnrichWithSpotify((current) => !current)
+                        }
+                        className="relative h-7 w-14 rounded-full transition"
+                        style={{
+                          background: enrichWithSpotify
+                            ? "linear-gradient(90deg, var(--theme-accent), var(--theme-warm))"
+                            : "rgba(255,255,255,0.12)",
+                          boxShadow: enrichWithSpotify
+                            ? "0 0 18px color-mix(in srgb, var(--theme-accent) 22%, transparent)"
+                            : "none",
+                        }}
+                      >
+                        <span
+                          className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
+                            enrichWithSpotify ? "left-8" : "left-1"
+                          }`}
+                        />
+                      </button>
+                    </div>
                   </div>
-
-                  {selectedFile ? (
-                    <div className="soft-panel rounded-[22px] px-4 py-3 text-sm text-white/80">
-                      <span className="font-black text-white">Datei:</span>{" "}
-                      {selectedFile.name}
-                    </div>
-                  ) : (
-                    <div className="rounded-[22px] border border-dashed border-white/12 px-4 py-3 text-sm text-white/38">
-                      Noch keine CSV ausgewählt
-                    </div>
-                  )}
 
                   <div className="flex flex-wrap items-center gap-3">
                     <button
