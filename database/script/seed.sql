@@ -1,6 +1,6 @@
 USE spotyfinderdb;
 
-INSERT INTO playlists (id, playlist_id, name) VALUES
+INSERT INTO playlists (id, spotify_playlist_id, name) VALUES
     (1, 'pl-those-eyes-demo', 'Those Eyes Demo Playlist');
 
 INSERT INTO record_labels (id, name) VALUES
@@ -9,23 +9,35 @@ INSERT INTO record_labels (id, name) VALUES
     (3, 'BMG Rights Management (US) LLC'),
     (4, 'Cube Entertainment');
 
-INSERT INTO artists (id, artist_id, name, artist_name) VALUES
-    (1, 'artist-new-west', 'New West', 'New West'),
-    (2, 'artist-the-neighbourhood', 'The Neighbourhood', 'The Neighbourhood'),
-    (3, 'artist-you-me-at-six', 'You Me At Six', 'You Me At Six'),
-    (4, 'artist-gidle', 'i-dle', 'i-dle');
+INSERT INTO artists (id, spotify_artist_id, name, artist_name, image_url) VALUES
+    (1, 'artist-new-west', 'New West', 'New West', NULL),
+    (2, 'artist-the-neighbourhood', 'The Neighbourhood', 'The Neighbourhood', NULL),
+    (3, 'artist-you-me-at-six', 'You Me At Six', 'You Me At Six', NULL),
+    (4, 'artist-gidle', 'i-dle', 'i-dle', NULL);
 
-INSERT INTO albums (id, album_id, name, release_date, label_id) VALUES
-    (1, 'album-those-eyes', 'Those Eyes', '2019-05-10', 1),
-    (2, 'album-wiped-out', 'Wiped Out!', '2015-10-30', 2),
-    (3, 'album-night-people', 'Night People', '2017-01-06', 3),
-    (4, 'album-i-feel', 'I feel', '2023-05-15', 4);
+INSERT INTO albums (id, spotify_album_id, name, release_date, label_id, image_url) VALUES
+    (1, 'album-those-eyes', 'Those Eyes', '2019-05-10', 1, NULL),
+    (2, 'album-wiped-out', 'Wiped Out!', '2015-10-30', 2, NULL),
+    (3, 'album-night-people', 'Night People', '2017-01-06', 3, NULL),
+    (4, 'album-i-feel', 'I feel', '2023-05-15', 4, NULL);
 
-INSERT INTO tracks (id, track_uri, album_id, duration_ms, popularity, explicit) VALUES
-    (1, 'spotify:track:2GThBgzZoZfz0lx1JjBwfe', 1, 220750, 1, FALSE),
-    (2, 'spotify:track:5Ma3BlNVDtn3JiwMEafSaq', 2, 262323, 59, FALSE),
-    (3, 'spotify:track:6J0xeqjdpsUH0W1YBCmD1L', 3, 271306, 0, FALSE),
-    (4, 'spotify:track:38MKW2tQHtyO8djIOKlEFF', 4, 162786, 2, FALSE);
+INSERT INTO tracks (
+    id,
+    spotify_track_id,
+    track_uri,
+    name,
+    album_id,
+    duration_ms,
+    popularity,
+    explicit,
+    spotify_url,
+    preview_url,
+    cover_image_url
+) VALUES
+    (1, '2GThBgzZoZfz0lx1JjBwfe', 'spotify:track:2GThBgzZoZfz0lx1JjBwfe', 'Those Eyes', 1, 220750, 1, FALSE, NULL, NULL, NULL),
+    (2, '5Ma3BlNVDtn3JiwMEafSaq', 'spotify:track:5Ma3BlNVDtn3JiwMEafSaq', 'Daddy Issues', 2, 262323, 59, FALSE, NULL, NULL, NULL),
+    (3, '6J0xeqjdpsUH0W1YBCmD1L', 'spotify:track:6J0xeqjdpsUH0W1YBCmD1L', 'Night People', 3, 271306, 0, FALSE, NULL, NULL, NULL),
+    (4, '38MKW2tQHtyO8djIOKlEFF', 'spotify:track:38MKW2tQHtyO8djIOKlEFF', 'Queencard', 4, 162786, 2, FALSE, NULL, NULL, NULL);
 
 INSERT INTO audio_features (
     track_id,
