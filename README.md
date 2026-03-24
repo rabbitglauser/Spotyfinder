@@ -14,9 +14,10 @@ Spotyfinder helps users discover better Spotify recommendations through a custom
 
 ## Technologies
 
-- <img src="https://skillicons.dev/icons?i=react" alt="React" height="40" /> **Frontend:** React, TypeScript, Tailwind CSS, Next.js
-- <img src="https://skillicons.dev/icons?i=py" alt="Python" height="40" /> **Backend:** Python
-- <img src="https://skillicons.dev/icons?i=sqlite" alt="SQLite" height="40" /> **Database:** SQLite
+- <img src="https://skillicons.dev/icons?i=react,ts,tailwind,nextjs" alt="React, TypeScript, Tailwind CSS, Next.js" height="40" /> **Frontend:** React, TypeScript, Tailwind CSS, Next.js
+- <img src="https://skillicons.dev/icons?i=py,fastapi" alt="Python, FastAPI" height="40" /> **Backend:** Python, FastAPI
+- <img src="https://skillicons.dev/icons?i=mysql" alt="MySQL" height="40" /> **Database:** MySQL
+- <img src="https://skillicons.dev/icons?i=docker" alt="Docker" height="40" /> **Containerization:** Docker
 
  ---
 
