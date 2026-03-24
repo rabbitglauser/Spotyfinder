@@ -19,10 +19,10 @@ Ihr erstellt ein kurzes, verständliches Konzept für eure Web-App.
 Das Konzept soll zeigen:
 
 - [x] **Was** eure App macht
--  **Welche Technologien** ihr einsetzen wollt
--  **Was** eure erste funktionsfähige Version kann (**MVP**)
--  **Wie** ihr das Projekt später erweitern würdet
--  **Welchen externen Service** ihr einbinden wollt
+- [x] **Welche Technologien** ihr einsetzen wollt
+- [x] **Was** eure erste funktionsfähige Version kann (**MVP**)
+- [x] **Wie** ihr das Projekt später erweitern würdet
+- [x] **Welchen externen Service** ihr einbinden wollt
 
 ---
 
@@ -99,7 +99,7 @@ Wählt mindestens **einen** Service aus und beschreibt:
 - [x] verständliche Beschreibung
 - [x] realistische Planung
 - [x] sinnvolle Technologieauswahl
-- technisch umsetzbarer MVP
+- [x] technisch umsetzbarer MVP
 - [x] saubere Markdown-Struktur
 
 ---
