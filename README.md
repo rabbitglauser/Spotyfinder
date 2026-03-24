@@ -12,6 +12,8 @@ Spotyfinder helps users discover better Spotify recommendations through a custom
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://spotyfinder.netlify.app/)
 
+[![Live Backend](https://img.shields.io/badge/Live-Backend-brightblue?style=for-the-badge)](https://spotyfinder-api.onrender.com/)
+
 ## Technologies
 
 - <img src="https://skillicons.dev/icons?i=react,ts,tailwind,nextjs" alt="React, TypeScript, Tailwind CSS, Next.js" height="40" /> **Frontend:** React, TypeScript, Tailwind CSS, Next.js
