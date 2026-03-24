@@ -5,6 +5,7 @@ from routes.items import router as items_router
 from routes.spotify import router as spotify_router
 from routes.import_exportify import router as import_router
 from routes.recommendations import router as recommendations_router
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
